@@ -1,0 +1,21 @@
+{
+  "name": "binary-search-tree",
+  "version": "1.0.0",
+  "description": "Making binary search trees in JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "James Rozsypal",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.21.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "jest": "^28.1.3",
+    "jest-cli": "^28.1.3"
+  },
+  "eslintConfig": {
+    "root": true
+  }
+}
