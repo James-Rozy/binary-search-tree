@@ -38,11 +38,17 @@ class Tree {
     if (newNode.value < node.value) {
       if (node.leftChild === null) {
         node.leftChild = newNode;
+      } else if (newNode.value > node.leftChild.value) {
+        newNode.leftChild = node.leftChild;
+        node.leftChild = newNode;
       } else {
         this.insertHelper(node.leftChild, newNode);
       }
     } else {
       if (node.rightChild === null) {
+        node.rightChild = newNode;
+      } else if (newNode.value < node.rightChild.value) {
+        newNode.rightChild = node.rightChild;
         node.rightChild = newNode;
       } else {
         this.insertHelper(node.rightChild, newNode);
@@ -113,5 +119,9 @@ const main = (() => {
   const arr1 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
   const myBST = new Tree(arr1);
+  prettyPrint(myBST.root);
+
+  myBST.insert(2);
+  myBST.insert(10);
   prettyPrint(myBST.root);
 })();
