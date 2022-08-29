@@ -26,6 +26,7 @@ class Tree {
 
   insert = (value) => {
     const newNode = new Node(value);
+    this.treeArr.push(value);
     if (this.root === null) {
       this.root = newNode;
     } else {
@@ -74,7 +75,10 @@ class Tree {
 
   isBalanced = () => {};
 
-  rebalance = () => {};
+  rebalance = () => {
+    this.treeArr = mergeSort([...new Set(this.treeArr)]);
+    this.root = this.buildTree(this.treeArr, 0, this.treeArr.length - 1);
+  };
 }
 
 // using the mergesort function I built previously
@@ -123,5 +127,8 @@ const main = (() => {
 
   myBST.insert(2);
   myBST.insert(10);
+  prettyPrint(myBST.root);
+  console.log(myBST.treeArr);
+  myBST.rebalance();
   prettyPrint(myBST.root);
 })();
