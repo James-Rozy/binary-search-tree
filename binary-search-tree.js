@@ -57,20 +57,28 @@ class Tree {
     }
   };
 
+  smallestChild = (node) => {
+    if (node.leftChild != null) {
+      return this.smallestChild(node.leftChild);
+    }
+    return node.value;
+  };
+
   delete = (value, node = this.root) => {
     if (node === null) {
+      return node;
     }
     if (value < node.value) {
-      if (value === node.leftChild.value) {
-        node.leftChild = node.leftChild.leftChild;
-        this.rebalance;
-      } else {
-        this.delete(value, node.leftChild);
-      }
+      node.leftChild = this.delete(value, node.leftChild);
+    } else if (value > node.value) {
+      node.rightChild = this.delete(value, node.rightChild);
+    } else {
+      if (node.leftChild === null) return node.rightChild;
+      if (node.rightChild === null) return node.leftChild;
+      node.value = this.smallestChild(node.rightChild);
+      node.rightChild = this.delete(node.value, node.rightChild);
     }
-    if (value > node.value) {
-      this.delete(value, node.rightChild);
-    }
+    return node;
   };
 
   find = (value, node = this.root) => {
@@ -151,4 +159,7 @@ const main = (() => {
   myBST.rebalance();
   prettyPrint(myBST.root);
   console.log(myBST.find(23));
+  console.log(myBST.smallestChild(myBST.root));
+  myBST.delete(4);
+  prettyPrint(myBST.root);
 })();
