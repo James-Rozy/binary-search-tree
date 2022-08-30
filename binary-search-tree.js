@@ -57,9 +57,28 @@ class Tree {
     }
   };
 
-  delete = (value) => {};
+  delete = (value, node = this.root) => {
+    if (node === null) {
+    }
+    if (value < node.value) {
+      if (value === node.leftChild.value) {
+        node.leftChild = node.leftChild.leftChild;
+        this.rebalance;
+      } else {
+        this.delete(value, node.leftChild);
+      }
+    }
+    if (value > node.value) {
+      this.delete(value, node.rightChild);
+    }
+  };
 
-  find = (value) => {};
+  find = (value, node = this.root) => {
+    if (node === null) return null;
+    else if (node.value === value) return node;
+    else if (node.value > value) return this.find(value, node.leftChild);
+    else if (node.value < value) return this.find(value, node.rightChild);
+  };
 
   levelOrder = () => {};
 
@@ -131,4 +150,5 @@ const main = (() => {
   console.log(myBST.treeArr);
   myBST.rebalance();
   prettyPrint(myBST.root);
+  console.log(myBST.find(67));
 })();
