@@ -75,9 +75,9 @@ class Tree {
 
   find = (value, node = this.root) => {
     if (node === null) return null;
-    else if (node.value === value) return node;
-    else if (node.value > value) return this.find(value, node.leftChild);
-    else if (node.value < value) return this.find(value, node.rightChild);
+    if (node.value === value) return node;
+    if (node.value > value) return this.find(value, node.leftChild);
+    if (node.value < value) return this.find(value, node.rightChild);
   };
 
   levelOrder = () => {};
@@ -150,5 +150,5 @@ const main = (() => {
   console.log(myBST.treeArr);
   myBST.rebalance();
   prettyPrint(myBST.root);
-  console.log(myBST.find(67));
+  console.log(myBST.find(23));
 })();
