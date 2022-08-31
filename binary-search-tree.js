@@ -126,7 +126,12 @@ class Tree {
     this.preOrder(node.rightChild);
   };
 
-  postOrder = () => {};
+  postOrder = (node = this.root) => {
+    if (node === null) return null;
+    this.postOrder(node.leftChild);
+    this.postOrder(node.rightChild);
+    this.postorder.push(node.value);
+  };
 
   height = (node) => {};
 
@@ -214,4 +219,8 @@ const main = (() => {
   // in-order traversal of tree
   myBST.inOrder();
   console.log(myBST.inorder);
+
+  // post-order traversal of tree
+  myBST.postOrder();
+  console.log(myBST.postorder);
 })();
