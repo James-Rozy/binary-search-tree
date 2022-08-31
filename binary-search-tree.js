@@ -165,9 +165,11 @@ class Tree {
   };
 
   isBalanced = () => {
-    let shallowest = 0;
-    let deepest = 0;
-    if (deepest - shallowest > 1) {
+    if (
+      Math.abs(
+        this.height(this.root.leftChild) - this.height(this.root.rightChild)
+      ) > 1
+    ) {
       return false;
     }
     return true;
@@ -265,4 +267,21 @@ const main = (() => {
   // find the depth of a node
   console.log("Depth of 2: " + myBST.depth(2));
   console.log("Depth of 9: " + myBST.depth(9));
+
+  // check to see if the tree is balanced
+  console.log(myBST.isBalanced()); //return true
+
+  // unbalance tree
+  myBST.insert(50);
+  myBST.insert(60);
+  myBST.insert(70);
+  myBST.insert(80);
+  prettyPrint(myBST.root);
+  // now check isBalanced
+  console.log(myBST.isBalanced());
+
+  // rebalance and check again
+  myBST.rebalance();
+  prettyPrint(myBST.root);
+  console.log(myBST.isBalanced());
 })();
