@@ -93,6 +93,7 @@ class Tree {
     if (node.value < value) return this.find(value, node.rightChild);
   };
 
+  // breadth-first-search
   // time-complexity = O(n)
   // space-complexity = O(n) average/worst - O(1) best case, but unlikely
   levelOrder = (node = this.root) => {
@@ -112,6 +113,9 @@ class Tree {
     return output;
   };
 
+  // depth-first-search
+  // time-complexity = O(n)
+  // space-complexity = O(logn) average/best - O(h) worst case, h being height of tree
   inOrder = (node = this.root) => {
     if (node === null) return null;
     this.inOrder(node.leftChild);
@@ -133,7 +137,12 @@ class Tree {
     this.postorder.push(node.value);
   };
 
-  height = (node) => {};
+  height = (node = this.root) => {
+    if (node === null) return 0;
+    const leftHeight = this.height(node.leftChild);
+    const rightHeight = this.height(node.rightChild);
+    return Math.max(leftHeight, rightHeight) + 1;
+  };
 
   depth = (node) => {};
 
@@ -223,4 +232,7 @@ const main = (() => {
   // post-order traversal of tree
   myBST.postOrder();
   console.log(myBST.postorder);
+
+  // find the height of the tree
+  console.log(myBST.height());
 })();
