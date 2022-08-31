@@ -112,7 +112,12 @@ class Tree {
     return output;
   };
 
-  inOrder = () => {};
+  inOrder = (node = this.root) => {
+    if (node === null) return null;
+    this.inOrder(node.leftChild);
+    this.inorder.push(node.value);
+    this.inOrder(node.rightChild);
+  };
 
   preOrder = (node = this.root) => {
     if (node === null) return null;
@@ -199,10 +204,14 @@ const main = (() => {
   console.log(myBST.find(23));
   prettyPrint(myBST.root);
 
-  // level order traversal of tree
+  // level-order traversal of tree
   console.log(myBST.levelOrder());
 
-  // pre order traversal of tree
+  // pre-order traversal of tree
   myBST.preOrder();
   console.log(myBST.preorder);
+
+  // in-order traversal of tree
+  myBST.inOrder();
+  console.log(myBST.inorder);
 })();
