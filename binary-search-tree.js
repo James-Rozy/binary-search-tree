@@ -69,6 +69,13 @@ class Tree {
     return node.value;
   };
 
+  largestChild = (node) => {
+    if (node.rightChild != null) {
+      return this.largestChild(node.rightChild);
+    }
+    return node.value;
+  };
+
   delete = (value, node = this.root) => {
     if (node === null) {
       return node;
@@ -138,15 +145,33 @@ class Tree {
   };
 
   height = (node = this.root) => {
-    if (node === null) return 0;
+    if (node === null) return -1;
     const leftHeight = this.height(node.leftChild);
     const rightHeight = this.height(node.rightChild);
     return Math.max(leftHeight, rightHeight) + 1;
   };
 
-  depth = (node) => {};
+  depth = (value, node = this.root) => {
+    if (node === null) return -1;
+    let depth = -1;
+    if (
+      node.value === value ||
+      (depth = this.depth(value, node.leftChild)) >= 0 ||
+      (depth = this.depth(value, node.rightChild)) >= 0
+    ) {
+      return depth + 1;
+    }
+    return depth;
+  };
 
-  isBalanced = () => {};
+  isBalanced = () => {
+    let shallowest = 0;
+    let deepest = 0;
+    if (deepest - shallowest > 1) {
+      return false;
+    }
+    return true;
+  };
 
   rebalance = () => {
     this.treeArr = mergeSort([...new Set(this.treeArr)]);
@@ -234,5 +259,10 @@ const main = (() => {
   console.log(myBST.postorder);
 
   // find the height of the tree
-  console.log(myBST.height());
+  console.log("Height of root: " + myBST.height());
+  console.log("Height of 2: " + myBST.height(myBST.find(2)));
+
+  // find the depth of a node
+  console.log("Depth of 2: " + myBST.depth(2));
+  console.log("Depth of 9: " + myBST.depth(9));
 })();
