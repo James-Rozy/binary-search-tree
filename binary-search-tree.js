@@ -10,6 +10,11 @@ class Tree {
   constructor(arr) {
     this.treeArr = mergeSort([...new Set(arr)]);
     this.root = this.buildTree(this.treeArr, 0, this.treeArr.length - 1);
+
+    // storage for recursive DFS traversal
+    this.preorder = [];
+    this.inorder = [];
+    this.postorder = [];
   }
 
   buildTree = (arr, left, right) => {
@@ -97,7 +102,7 @@ class Tree {
     const output = []; // array of tree values stored in level order
     queue.push(node);
 
-    while (queue.length != 0) {
+    while (queue.length !== 0) {
       const currNode = queue.shift();
       output.push(currNode.value);
       if (currNode.leftChild !== null) queue.push(currNode.leftChild);
@@ -109,7 +114,12 @@ class Tree {
 
   inOrder = () => {};
 
-  preOrder = () => {};
+  preOrder = (node = this.root) => {
+    if (node === null) return null;
+    this.preorder.push(node.value);
+    this.preOrder(node.leftChild);
+    this.preOrder(node.rightChild);
+  };
 
   postOrder = () => {};
 
@@ -191,4 +201,8 @@ const main = (() => {
 
   // level order traversal of tree
   console.log(myBST.levelOrder());
+
+  // pre order traversal of tree
+  myBST.preOrder();
+  console.log(myBST.preorder);
 })();
