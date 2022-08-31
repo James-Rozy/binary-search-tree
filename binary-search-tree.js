@@ -88,7 +88,24 @@ class Tree {
     if (node.value < value) return this.find(value, node.rightChild);
   };
 
-  levelOrder = () => {};
+  // time-complexity = O(n)
+  // space-complexity = O(n) average/worst - O(1) best case, but unlikely
+  levelOrder = (node = this.root) => {
+    if (node === null) return null;
+
+    const queue = []; // FIFO queue
+    const output = []; // array of tree values stored in level order
+    queue.push(node);
+
+    while (queue.length != 0) {
+      const currNode = queue.shift();
+      output.push(currNode.value);
+      if (currNode.leftChild !== null) queue.push(currNode.leftChild);
+      if (currNode.rightChild !== null) queue.push(currNode.rightChild);
+    }
+
+    return output;
+  };
 
   inOrder = () => {};
 
@@ -149,17 +166,29 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 const main = (() => {
   const arr1 = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
+  // create a binary tree from an array of random numbers
   const myBST = new Tree(arr1);
   prettyPrint(myBST.root);
 
+  // insert nodes into the tree
   myBST.insert(2);
   myBST.insert(10);
   prettyPrint(myBST.root);
+
   console.log(myBST.treeArr);
+
+  // balance the tree by calling rebalance
   myBST.rebalance();
   prettyPrint(myBST.root);
-  console.log(myBST.find(23));
-  console.log(myBST.smallestChild(myBST.root));
+
+  // delete a node that has two children
   myBST.delete(4);
   prettyPrint(myBST.root);
+
+  // find a node in the tree
+  console.log(myBST.find(23));
+  prettyPrint(myBST.root);
+
+  // level order traversal of tree
+  console.log(myBST.levelOrder());
 })();
